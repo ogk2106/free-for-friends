@@ -1,0 +1,130 @@
+body {
+  width: 1440px;
+  height: 1024px;
+  position: relative;
+  background: #F5F0F7;
+}
+
+.branding {
+    height: 50px;
+    width: 281px;
+    position: absolute;
+} 
+
+.brand-title {
+  width: 402.59px;
+  height: 41.04px;
+  position: absolute;
+  left: 78.41px;
+  color: black;
+  font-size: 23.68px;
+  font-family: Darker Grotesque, sans-serif;
+  font-weight: 700;
+  word-wrap: break-word;
+}
+
+.brand-logo {
+  width: 74.20px;
+  height: 54.20px;
+}
+
+.login-title {
+  width: 474px;
+  height: 127px;
+  position: absolute;
+  left: 483px;
+  top: 145px;
+  text-align: center;
+  color: black;
+  font-size: 64px;
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  letter-spacing: 3.20px;
+  word-wrap: break-word;
+}
+
+.input-container {
+  width: 542px;
+  height: 49px;
+  position: absolute;
+}
+
+.input-box {
+    width: 100%;
+    height: 100%;
+    background: #F5F0F7;
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 10px;
+    color: #606060;
+    font-size: 16px;
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.80px;
+    box-sizing: border-box;
+}
+  
+.input-box::placeholder {
+    color: #606060;
+    opacity: 1;
+}
+
+.login-button {
+    width: 100%;
+    height: 100%;
+    background: #2C4162;
+    border-radius: 20px;
+    color: white;
+    font-size: 20px;
+    font-family: Inter, sans-serif;
+    font-weight: 590;
+    letter-spacing: 3px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+.login-button:hover {
+    background: #385F71;
+}
+
+.login-button:active {
+    background: #1B2E44;
+}
+
+.login-button-container {
+    position: absolute;
+    width: 542px;
+    height: 47px;
+}
+
+.login-button-text {
+  width: 107px;
+  height: 56px;
+  position: absolute;
+  text-align: center;
+  color: white;
+  font-size: 20px;
+  font-family: Inter, sans-serif;
+  font-weight: 700;
+  letter-spacing: 3px;
+  word-wrap: break-word;
+}
+
+.link-text {
+    width: 277px;
+    height: 32px;
+    position: absolute;
+    text-align: center;
+    color: #385F71;
+    font-size: 16px;
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    text-decoration: underline;
+    letter-spacing: 0.80px;
+    word-wrap: break-word;
+}
+  
+.link-text:hover {
+    color: #2C4162;
+}

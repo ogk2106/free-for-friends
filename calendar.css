@@ -1,0 +1,110 @@
+/* Global Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    background-color: #f5f0f6;
+}
+
+/* Header Styles */
+.header {
+    display: flex; /* Align children (logo, navigation) horizontally */
+    justify-content: space-between; /* Space out the children */
+    align-items: center; /* Vertically center the children */
+    padding: 10px 20px;
+    background-color: #f5f0f6;
+}
+
+.logo img {
+    height: 40px; /* Adjust the size of the logo */
+}
+
+.navigation {
+    display: flex; /* Align navigation items horizontally */
+    align-items: center; /* Vertically center the items */
+}
+
+/*explore and calendar header buttons*/
+.navigation a {
+    margin: 0 1rem; /* Space out the navigation links */
+    text-decoration: none;
+    color: #333;
+    
+}
+
+.profile-circle {
+    width: 40px;
+    height: 40px;
+    background-color: #2B4162;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+.week{
+    font-size: 20pt;
+    margin-top: 2.5rem;
+}
+
+/* Calendar Container */
+.calendar-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    text-align: center;
+   
+}
+
+/* Month Title */
+.month {
+    text-align: left; /* Align month title to the left */
+    margin-bottom: 10pt;
+    font-size: 3rem;
+    
+}
+
+/* Calendar background */
+.calendar {
+    display: grid;
+    grid-template-rows: repeat(7, 1fr);
+    grid-template-columns: repeat(7, 1fr);
+    background-color: #0e3b61;
+    margin-top: 3.5rem;
+    
+    border-radius: 8px;
+    margin-bottom: 3pt;
+}
+
+
+/* Calendar Rows and Days */
+.row {
+    display: contents;
+   
+}
+
+.header-row div {
+    
+    color: white;
+    text-align: center;
+}
+
+.day {
+    background-color: #10487676;
+    color: white;
+    border: 1px solid #4a5b7a;
+    padding: 0.5rem;
+    text-align: right;
+    position: relative;
+    min-height: 100px;
+    margin-top: 0%;
+    font-size: 1rem;
+  
+}
+
+.event {
+    font-size: 0.8rem;
+    color: #d1d1d1;
+    margin-top: 0.5rem;
+    word-wrap: break-word;
+}

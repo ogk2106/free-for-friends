@@ -1,0 +1,179 @@
+body {
+    width: 1440px;
+    height: 1024px;
+    position: relative;
+    background: #F5F0F7;
+}
+
+.branding {
+    height: 50px;
+    width: 281px;
+    position: absolute;
+}
+
+.brand-title {
+  width: 402.59px;
+  height: 41.04px;
+  position: absolute;
+  left: 78.41px;
+  color: black;
+  font-size: 23.68px;
+  font-family: Darker Grotesque, sans-serif;
+  font-weight: 700;
+  word-wrap: break-word;
+}
+
+.brand-logo {
+    width: 74.20px;
+    height: 54.20px;
+}
+
+.signup-title {
+    width: 474px;
+    height: 127px;
+    left: 483px;
+    top: 145px;
+    position: absolute;
+    text-align: center;
+    color: black;
+    font-size: 64px;
+    font-family: Inter, sans-serif;
+    font-weight: 500;
+    letter-spacing: 3.20px;
+    word-wrap: break-word;
+}
+
+.tagline {
+    width: 928px;
+    height: 32px;
+    left: 256px;
+    top: 281px;
+    position: absolute;
+    text-align: center;
+    color: black;
+    font-size: 20px;
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+.input-container {
+    width: 542px;
+    height: 49px;
+    position: absolute;
+}
+  
+.input-box {
+    width: 542px;
+    height: 49px;
+    background: #F5F0F7;
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 10px;
+    color: #606060;
+    font-size: 16px;
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.80px;
+    box-sizing: border-box;
+}
+    
+.input-box::placeholder {
+    color: #606060;
+    opacity: 1;
+}
+
+.terms-container {
+    width: 532px;
+    left: 459px;
+    top: 671px;
+    position: absolute;
+}
+
+.terms-text {
+    width: 494px;
+    height: 32px;
+    position: absolute;
+    left: 38px;
+    top: 0px;
+    font-size: 16px;
+    font-family: Inter, sans-serif;
+    letter-spacing: 0.80px;
+    word-wrap: break-word;
+    color: #385F71;
+}
+
+.normal-text {
+    font-weight: 400;
+}
+
+.underline-text {
+    font-weight: 500;
+    text-decoration: underline;
+}
+
+.checkbox {
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    left: 0px;
+    top: 5px;
+    background: rgba(217, 217, 217, 0);
+    border-radius: 3px;
+    border: 1px solid black;
+}
+
+.createaccount-button-container {
+    width: 542px;
+    height: 56px;
+    left: 449px;
+    top: 729px;
+    position: absolute;
+}
+
+.createaccount-button {
+    width: 542px;
+    height: 47px;
+    left: 0px;
+    top: 4px;
+    position: absolute;
+    background: #2C4162;
+    color: white;
+    border-radius: 20px;
+    font-family: Inter, sans-serif;
+    font-weight: 590;
+    letter-spacing: 3px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+.createaccount-button:hover {
+    background: #385F71;
+}
+
+.createaccount-button:active {
+    background: #1B2E44;
+}
+
+.login-button-container {
+    position: absolute;
+    width: 542px;
+    height: 47px;
+}
+
+.login-text{
+    width: 277px;
+    height: 32px;
+    left: 581px;
+    top: 811px;
+    position: absolute;
+    text-align: center;
+    color: #385F71;
+    font-size: 16px;
+    font-family: Inter, sans-serif; 
+    font-weight: 400;
+    text-decoration: underline;
+    letter-spacing: 0.80px;
+    word-wrap: break-word;
+}

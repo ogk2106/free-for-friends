@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import Header from './Header';
 import Explore from './Explore';
 import EventDetails from './EventDetails';
-import { BrowserRouter as Router, Routes, Route } from
-'react-router-dom';
+import Calendar from './Calendar'
+import Signup from './Signup'
+import Login from './Login'
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
 function App() {
   const [deals, setDeals] = useState([]);
@@ -37,12 +40,25 @@ function App() {
 
   return (
     <Router>
-    <Routes>
-      <Route path="/" element={<Explore deals={deals}/>} />
-      <Route path="/event/:id" element={<EventDetails deals={deals}/>} />
-    </Routes>
+      <HeaderWrapper />
+      <Routes>
+        <Route path="/" element={<Signup />} />
+        <Route path="/explore" element={<Explore deals={deals} />} />
+        <Route path="/event/:id" element={<EventDetails deals={deals} />} />
+        <Route path="/calendar" element={<Calendar />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
     </Router>
   );
+}
+
+function HeaderWrapper() {
+  const location = useLocation();
+  if (location.pathname === '/signup' || location.pathname === '/login' || location.pathname === '/') {
+    return null;
+  }
+  return <Header />;
 }
 
 export default App;

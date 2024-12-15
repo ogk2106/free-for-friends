@@ -2,11 +2,78 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from crawlbase import CrawlingAPI
 from bs4 import BeautifulSoup
+import json
 
 app = Flask(__name__)
-CORS(app)  
-
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
 crawling_api = CrawlingAPI({'token': 'RlVrqqjNg4yFnypxiZ9J0Q'})
+
+USER_DATA = {}
+user = ''
+
+@app.route('/api/signup', methods=['OPTIONS', 'POST'])
+def signup():
+    try:
+        if request.method == 'OPTIONS':
+            response = jsonify({})
+            response.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000'
+            response.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
+            response.headers['Access-Control-Allow-Headers'] = 'Content-Type, X-Custom-Header'
+            return response
+
+        if request.method == 'POST':
+            data = request.get_json()
+            if data is None:
+                return jsonify({'error': 'Invalid JSON format in request body'}), 400
+            
+            name = data.get('name')
+            username = data.get('username')
+            email = data.get('email')
+            phone = data.get('phone')
+            password = data.get('password')
+
+            if not all([name, username, email, phone, password]):
+                return jsonify({'error': 'All fields are required'}), 400
+
+            if username in USER_DATA:
+                return jsonify({'error': 'Username already exists'}), 400
+            if phone in [u['phone'] for u in USER_DATA.values()]:
+                return jsonify({'error': 'Phone number already exists'}), 400
+
+            USER_DATA[username] = {'name': name, 'email': email, 'phone': phone, 'password': password, 'events': []}
+            return jsonify({'message': 'User created successfully'}), 201
+
+    except Exception as e:
+        print(f"Error during signup: {e}")
+        return jsonify({'error': 'Internal Server Error'}), 500
+
+
+def load_user_data():
+    global USER_DATA
+    try:
+        with open('users.json', 'r') as file:
+            USER_DATA = json.load(file)
+    except FileNotFoundError:
+        USER_DATA = {}
+
+def save_user_data():
+    with open('users.json', 'w') as file:
+        json.dump(USER_DATA, file)
+
+@app.route('/api/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+
+    if not username or not password:
+        return jsonify({'error': 'Username and password are required'}), 400
+
+    user = USER_DATA.get(username)
+    if not user or user['password'] != password:
+        return jsonify({'error': 'Invalid username or password'}), 401
+
+    return jsonify({'message': 'Login successful'}), 200
 
 #this is the flask route to scrape the events to do from the nyc groupon page
 @app.route('/api/scrape', methods=['GET'])
@@ -51,8 +118,7 @@ def scrape_groupon():
         return jsonify(all_deals)
     else:
         return jsonify({"error": "Failed to fetch data", "status_code": response['headers']['pc_status']}), 500
-
-
+    
 #this is the flask route to scrape the description for a certain event
 @app.route('/api/description', methods=['GET'])
 def get_description():
@@ -79,6 +145,5 @@ def get_description():
     except Exception as e:
         return jsonify({"error": f"An error occurred: {e}"}), 500
 
-
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=5000)

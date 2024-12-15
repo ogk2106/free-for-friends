@@ -5,6 +5,7 @@ import EventDetails from './EventDetails';
 import Calendar from './Calendar'
 import Signup from './Signup'
 import Login from './Login'
+import ProfileExternal from './ProfileExternal'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/externalprofile" element={<ProfileExternal />} />
       </Routes>
     </Router>
   );

@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import logo from './images/logo.jpg';
 import { Link } from 'react-router-dom';
 
 function Header() {
+    const [userName, setUserName] = useState(null);
+
+    useEffect(() => {
+        const storedUserName = localStorage.getItem('username');
+        if (storedUserName) {
+        setUserName(storedUserName);
+        }
+    }, []);
+    const profileLetter = userName ? userName.charAt(0).toUpperCase() : '';
+
     return(
         <header class="header">
             <div className="logo">
@@ -14,7 +24,7 @@ function Header() {
                 <Link to="/explore" className="nav-link">Explore</Link>
                 <Link to="/calendar" className="nav-link">Calendar</Link>
 
-                <div class="profile">J</div>
+                <div className="profile">{profileLetter}</div>
             </nav>
         </header>
     );

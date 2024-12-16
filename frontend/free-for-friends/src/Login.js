@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import './App.css';
-import logo from './images/logo.jpg'; // You imported 'logo' but used 'login' below
+import logo from './images/logo.jpg';
 import { Link, useNavigate } from 'react-router-dom';
 
-function Login() {
+function Login({ setUsername }) {
+    console.log('Login component rendered');
+    
     const style = {
         branding: {
             left: '20px',
@@ -39,7 +41,7 @@ function Login() {
         }
     };
 
-    const [username, setUsername] = useState('');
+    const [localUsername, setLocalUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
@@ -49,13 +51,16 @@ function Login() {
             const response = await fetch('http://localhost:5000/api/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password }),
+                body: JSON.stringify({ username: localUsername, password }),
             });
 
             const data = await response.json();
 
             if (response.ok) {
-                navigate('/explore');
+                localStorage.setItem('username', localUsername); // Store username in localStorage
+                console.log("Setting username in parent:", localUsername);
+                setUsername(localUsername);  // Update parent App component's state
+                navigate('/explore');  // Navigate to explore page
             } else {
                 setError(data.error || 'Login failed. Please check your credentials.');
             }
@@ -80,8 +85,8 @@ function Login() {
                     style={style.input}
                     placeholder="Username"
                     aria-label="Username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    value={localUsername}
+                    onChange={(e) => setLocalUsername(e.target.value)}
                 />
             </div>
 
@@ -97,20 +102,25 @@ function Login() {
                 />
             </div>
 
-            {error && (
-                <div className="error" style={{ color: 'red', textAlign: 'center' }}>
-                    {error}
-                </div>
-            )}
-
             <div className="login-button-container" style={{ ...style.inputContainer, top: '351px'}}>
                 <button className="login-button" style={style.button} onClick={handleLogin}> Log In </button>
             </div>
 
             <a href="#1" className="link-text" style={{ ...style.link, left: '581px', top: '531px'}}>Forgot your password?</a>
             <a href="#2" className="link-text" style={{ ...style.link, left: '581px', top: '578px'}}>Don’t have an account? Sign up!</a>
+
+            {error && (
+                <div className="popup-error">
+                    <div className="popup-content">
+                        <p>{error}</p>
+                        <button onClick={() => setError('')}>Close</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
 
 export default Login;
+
+

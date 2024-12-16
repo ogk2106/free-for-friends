@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './App.css';
 import logo from './images/logo.jpg';
 
-function Signup() {
+function Signup({ setUsername }) {
   const style = {
     branding: {
       left: '20px',
@@ -75,6 +75,7 @@ function Signup() {
       setError('An error occurred. Please try again.');
     }
   };
+
 
   return (
     <div>

@@ -9,7 +9,7 @@ Event Details Page:
   - Provides the groupchat link (or generates a new one using the GroupMe API) for the event where users can communicate
   - Stores the information for who is attending each event (using the unique identifier for a user and unique identifier for the event) once they have joined the groupchat, and retrieves that data to show the user a list of who else is attending
 
-We also have static implementations of the profile and calendar pages. 
+We also have static implementation of the calendar page, where a user can see all events they are attending in the current month.
 
 How to run the project:
 Backend: cd backend, source groupon_env/bin/activate, python app.py, flask should host the backend server at http://localhost:5000.

@@ -23,7 +23,7 @@ function App() {
     if (username === null) {
       console.log("No username, redirecting to signup...");
       setLoading(false);  // Allow page to load with signup
-      navigate('/signup'); // redirect to signup
+      navigate('/login'); // redirect to signup
     } else {
       console.log("Fetching deals...");
       fetchDeals();

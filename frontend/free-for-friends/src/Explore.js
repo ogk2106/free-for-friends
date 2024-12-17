@@ -6,7 +6,7 @@ function Explore({deals}) {
 return (
     <main className="main-content">
     <section className="featured-event">
-        <button className="carousel-btn left">&lt;</button>
+        {/* <button className="carousel-btn left">&lt;</button> */}
         <div className="event-content">
           <div className="event-carousel">
           <img src={deals[0].image_url} className="carousel-image" />
@@ -31,7 +31,7 @@ return (
             <Link to= {`/event/${deals[0].id}`}><button className="event-btn">EVENT DETAILS</button></Link>
           </div>
         </div>
-        <button className="carousel-btn right">&gt;</button>
+        {/* <button className="carousel-btn right">&gt;</button> */}
       </section>
       
       
@@ -50,7 +50,7 @@ return (
         <option>This week</option>
       </select>
       <select className="filter-dropdown">
-        <option>Anyone</option>
+        <option>With Anyone</option>
         <option>With Friends</option>
       </select>
       <select className="filter-dropdown">

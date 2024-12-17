@@ -15,7 +15,8 @@ function EventDetails({ deals, username }) {
   const [attendeesInfo, setAttendeesInfo] = useState({
     firstPerson: 'N/A',  // Default values
     numAttendees: 0,
-    message: '6 people are currently going to this event.', // Default message
+    // message: '6 people are currently going to this event.', // Default message
+    message: '0 people are currently going to this event.'
   });
 
   useEffect(() => {
@@ -79,64 +80,99 @@ function EventDetails({ deals, username }) {
     }
   };
 
-  const handleJoinGroupchat = async () => {
-    if (!username) {
-      alert("You must be logged in to join the groupchat.");
-      return;
-    }
+  // const handleJoinGroupchat = async () => {
+  //   if (!username) {
+  //     alert("You must be logged in to join the groupchat.");
+  //     return;
+  //   }
 
-    try {
-      const response = await fetch('http://127.0.0.1:5000/api/add_event', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          event_id: item.id,
-          username: username,
-          name: username,  // Assuming the username is used as name here
-        }),
-      });
+  //   try {
+  //     const response = await fetch('http://127.0.0.1:5000/api/add_event', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         event_id: item.id,
+  //         username: username,
+  //         name: username,  // Assuming the username is used as name here
+  //       }),
+  //     });
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Event added:', data);
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       console.log('Event added:', data);
   
-        setHasJoined(true);
-        localStorage.setItem(`hasJoined-${item.id}-${username}`, JSON.stringify(true)); // Use username in the key
+  //       setHasJoined(true);
+  //       localStorage.setItem(`hasJoined-${item.id}-${username}`, JSON.stringify(true)); // Use username in the key
 
-        // Update attendees info after joining
-        const updatedAttendees = {
-          firstPerson: data.last_person,
-          numAttendees: data.num_attendees,
-          message: `${data.num_attendees} people are currently going to this event.`, // Updated message
-        };
-        setAttendeesInfo(updatedAttendees);
+  //       // Update attendees info after joining
+  //       const updatedAttendees = {
+  //         firstPerson: data.last_person,
+  //         numAttendees: data.num_attendees,
+  //         message: `${data.num_attendees} people are currently going to this event.`, // Updated message
+  //       };
+  //       setAttendeesInfo(updatedAttendees);
 
-        // Save to localStorage
-        localStorage.setItem(`attendeesInfo-${item.id}`, JSON.stringify(updatedAttendees));
+  //       // Save to localStorage
+  //       localStorage.setItem(`attendeesInfo-${item.id}`, JSON.stringify(updatedAttendees));
 
-        alert(`Event added successfully!`);
-      } else {
-        const data = await response.json();
-        console.error('Error response:', data);
+  //       alert(`Event added successfully!`);
+  //     } else {
+  //       const data = await response.json();
+  //       console.error('Error response:', data);
   
-        if (data.error && data.error === 'Event already added') {
-          setHasJoined(true);
-          localStorage.setItem(`hasJoined-${item.id}-${username}`, JSON.stringify(true)); // Use username in the key
-          alert('You have already joined this event.');
-        } else {
-          alert(data.error || 'An error occurred');
-        }
-      }
-    } catch (error) {
-      console.error('Fetch error:', error);
-      alert('An error occurred while adding the event');
-    }
-  };
+  //       if (data.error && data.error === 'Event already added') {
+  //         setHasJoined(true);
+  //         localStorage.setItem(`hasJoined-${item.id}-${username}`, JSON.stringify(true)); // Use username in the key
+  //         alert('You have already joined this event.');
+  //       } else {
+  //         alert(data.error || 'An error occurred');
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error('Fetch error:', error);
+  //     alert('An error occurred while adding the event');
+  //   }
+  // };
+
+  // const handleGetGroupChat = async () => {
+  //   try {
+  //     const response = await fetch('http://127.0.0.1:5000/api/groupchat', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         event_id: item.id,
+  //       }),
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error(`Failed to fetch group chat: ${response.statusText}`);
+  //     }
+
+  //     const data = await response.json();
+  //     if (data.group_chat_link) {
+  //       setGroupChatLink(data.group_chat_link);
+  //     } else {
+  //       setGroupChatLink('No group chat link available.');
+  //     }
+  //   } catch (err) {
+  //     console.error('Failed to get group chat:', err);
+  //     setGroupChatLink('An error occurred while fetching the group chat link.');
+  //   }
+  // };
 
   const handleGetGroupChat = async () => {
+    // Step 1: Check if user is logged in (similar to handleJoinGroupchat)
+    if (!username) {
+      alert("You must be logged in to join the group chat.");
+      return;
+    }
+  
     try {
+      // Step 2: Fetch group chat link (original behavior from handleGetGroupChat)
       const response = await fetch('http://127.0.0.1:5000/api/groupchat', {
         method: 'POST',
         headers: {
@@ -146,22 +182,68 @@ function EventDetails({ deals, username }) {
           event_id: item.id,
         }),
       });
-
+  
       if (!response.ok) {
         throw new Error(`Failed to fetch group chat: ${response.statusText}`);
       }
-
+  
       const data = await response.json();
+  
+      // Step 3: Set group chat link if available
       if (data.group_chat_link) {
         setGroupChatLink(data.group_chat_link);
       } else {
         setGroupChatLink('No group chat link available.');
       }
-    } catch (err) {
-      console.error('Failed to get group chat:', err);
-      setGroupChatLink('An error occurred while fetching the group chat link.');
+  
+      // Step 4: Now handle the "join event" functionality (mimicking handleJoinGroupchat)
+      const joinResponse = await fetch('http://127.0.0.1:5000/api/add_event', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          event_id: item.id,
+          username: username,
+          name: username,  // Assuming the username is used as the name here
+        }),
+      });
+  
+      if (joinResponse.ok) {
+        const joinData = await joinResponse.json();
+        console.log('Event added:', joinData);
+  
+        setHasJoined(true);
+        localStorage.setItem(`hasJoined-${item.id}-${username}`, JSON.stringify(true));
+  
+        // Step 5: Update attendee info and store in localStorage
+        const updatedAttendees = {
+          firstPerson: joinData.last_person,
+          numAttendees: joinData.num_attendees,
+          message: `${joinData.num_attendees} people are currently going to this event.`,
+        };
+        setAttendeesInfo(updatedAttendees);
+  
+        localStorage.setItem(`attendeesInfo-${item.id}`, JSON.stringify(updatedAttendees));
+  
+        alert(`Event added successfully and you are now part of the group chat!`);
+      } else {
+        const joinData = await joinResponse.json();
+        console.error('Error response:', joinData);
+  
+        if (joinData.error && joinData.error === 'Event already added') {
+          setHasJoined(true);
+          localStorage.setItem(`hasJoined-${item.id}-${username}`, JSON.stringify(true));
+          alert('You have already joined this event.');
+        } else {
+          alert(joinData.error || 'An error occurred while adding you to the event.');
+        }
+      }
+    } catch (error) {
+      console.error('Error during the group chat or join event process:', error);
+      alert('An error occurred while fetching the group chat link or adding the event.');
     }
-  };
+  };  
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -235,7 +317,7 @@ function EventDetails({ deals, username }) {
 
         <p className="attendees-info">
           {attendeesInfo.numAttendees === 0 
-            ? "6 people are currently going to this event."
+            ? "0 people are currently going to this event."
             : `${attendeesInfo.firstPerson} and ${attendeesInfo.numAttendees - 1} others are going.`}
         </p>
 
